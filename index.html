@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ЕВРАЗ — Охота на дефект</title>
+<style>
+:root{--bg:#090d0f;--panel:#111719;--panel2:#1a2224;--line:#303b3e;--text:#f4f5f5;--muted:#b8c0c2;--blue:#ff7900;--green:#39d477;--orange:#ff8a00;--red:#ff4c42}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#252c2c 0,#090d0f 62%);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+.wrap{max-width:1080px;margin:auto;padding:22px}.hero{padding:24px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(120deg,#202727,#0c1112);position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-20px;bottom:-50px;width:300px;height:150px;border-top:8px solid #72879e;border-bottom:8px solid #72879e;transform:rotate(-13deg);opacity:.25}
+.eyebrow{color:#ff8a00;font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;margin:.35em 0}p{margin:.5em 0;color:var(--muted)}.hero p{max-width:700px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}.stat,.panel{border:1px solid var(--line);background:rgba(18,30,48,.92);border-radius:16px;padding:16px}.stat small{display:block;color:var(--muted)}.stat strong{font-size:1.5rem}
+.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.panel h2{margin:0 0 10px;font-size:1.15rem}.tag{display:inline-block;padding:4px 9px;border-radius:99px;background:#39240f;color:#ffd2a3;font-size:.8rem;font-weight:700}
+.rail-scene{border-radius:12px;overflow:hidden;background:#0a111c;border:1px solid #30445e;margin:12px 0}
+.rail-scene svg{display:block;width:100%;height:auto}.clues{display:grid;gap:9px;margin:12px 0}.clue{padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#0d1315}.clue b{display:block;color:#fff}.clue span{color:var(--muted);font-size:.94rem}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}button{border:1px solid #46617f;background:#203b59;color:#f4f9ff;padding:12px 13px;border-radius:11px;font:inherit;font-weight:700;cursor:pointer;transition:.15s}button:hover{filter:brightness(1.15);transform:translateY(-1px)}button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.primary{background:#087bb8;border-color:#35a7e7}.safe{background:#16452d;border-color:#2a936d}.warn{background:#57300d;border-color:#a7772f}.muted-btn{background:#171f21}
+.feedback{margin-top:12px;padding:13px;border-radius:11px;background:#0d1315;border:1px solid var(--line);min-height:52px}.feedback.good{border-color:#2a936d}.feedback.bad{border-color:#b15b62}
+.progress{height:8px;background:#30383a;border-radius:99px;overflow:hidden;margin:10px 0 14px}.progress div{height:100%;background:linear-gradient(90deg,#ff5b00,#ffb000);width:0;transition:width .3s}
+.small{font-size:.9rem;color:var(--muted)}.choices{display:grid;gap:9px}.choice{display:flex;gap:10px;align-items:flex-start;text-align:left}.choice span:first-child{font-size:1.25rem}.hidden{display:none!important}.footer{margin:16px 2px;color:var(--muted);font-size:.85rem}
+
+.site-nav{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 4px 20px}
+.brand{display:flex;align-items:center;gap:9px;color:#f7f7f7;text-decoration:none;font-size:1.35rem;font-weight:900;letter-spacing:.02em}
+.brand-mark{color:#ff8500;font-size:1.7rem;line-height:1}
+.nav-links{display:flex;align-items:center;gap:22px}
+.nav-links a{color:#cbd0d1;text-decoration:none;font-size:.92rem;font-weight:700}
+.nav-links a:hover{color:#ff9200}
+.nav-links .nav-play{background:linear-gradient(135deg,#ff9a00,#ff5b00);color:#101010;padding:9px 15px;border-radius:8px}
+.hero-cta{display:inline-flex;align-items:center;justify-content:center;margin-top:16px;padding:13px 20px;border-radius:9px;background:linear-gradient(135deg,#ff9a00,#ff5b00);color:#111;text-decoration:none;font-weight:900;letter-spacing:.02em;position:relative;z-index:1}
+.hero-pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;position:relative;z-index:1}
+.hero-pills span{padding:7px 10px;border:1px solid #394142;border-radius:8px;background:#111718;color:#e3e5e5;font-size:.88rem}
+.intro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:15px 0 26px}
+.intro-card{border:1px solid var(--line);border-radius:14px;padding:18px;background:linear-gradient(145deg,#171e20,#0e1315)}
+.intro-icon{font-size:1.6rem;color:#ff8500;font-weight:900}
+.intro-card h2{margin:7px 0 5px;font-size:1.1rem}.intro-card p{margin:0;font-size:.94rem}
+
+.audience-section{margin:22px 0 26px;padding:22px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(135deg,#171e20,#0c1112)}
+.audience-section h2{margin:4px 0 8px;font-size:clamp(1.4rem,3vw,2rem)}
+.audience-lead{max-width:780px}
+.audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:15px}
+.audience-card{padding:16px;border:1px solid #394142;border-radius:12px;background:#101617}
+.audience-icon{font-size:1.5rem;color:#ff8500}
+.audience-card h3{margin:8px 0 6px;font-size:1.02rem}
+.audience-card p{margin:0;font-size:.93rem}
+.audience-note{margin-top:14px;padding:12px;border-left:3px solid #ff8500;background:#101617;border-radius:0 9px 9px 0;font-size:.92rem;color:#d7dddd}
+
+.section-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:24px 2px 12px}
+.section-heading h2,.closing h2{margin:4px 0;font-size:clamp(1.5rem,3vw,2rem)}
+.section-heading p{max-width:390px;font-size:.92rem}
+.closing{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:20px;padding:22px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(120deg,#1a2223,#0c1112)}
+.closing p{max-width:650px;margin-bottom:0}
+html{scroll-behavior:smooth;scroll-padding-top:14px}
+
+@media(max-width:760px){.audience-grid{grid-template-columns:1fr}.wrap{padding:12px}.site-nav{align-items:flex-start}.nav-links{gap:10px;flex-wrap:wrap;justify-content:flex-end}.nav-links a{font-size:.82rem}.intro-grid{grid-template-columns:1fr}.section-heading,.closing{align-items:flex-start;flex-direction:column}.layout{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:12px}.actions{grid-template-columns:1fr}.hero{padding:20px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<nav class="site-nav" aria-label="Главная навигация">
+  <a class="brand" href="#top"><span class="brand-mark">☰</span> ЕВРАЗ</a>
+  <div class="nav-links">
+    <a href="#about">О проекте</a>
+    <a href="#how">Как играть</a>
+    <a href="#audience">Для кого</a>
+    <a class="nav-play" href="#game">Играть&nbsp; →</a>
+  </div>
+</nav>
+<header class="hero" id="top">
+<div class="eyebrow">☰ ЕВРАЗ · Инженерная мини-игра</div>
+<h1>ОХОТА <span style="color:#ff8500">НА ДЕФЕКТ</span></h1>
+<p>Найди дефекты рельсов до их остывания и предотврати аварии. Сопоставляй следы, анализируй показания датчиков и принимай решения как инженер контроля качества.</p>
+<a class="hero-cta" href="#game">▶&nbsp; НАЧАТЬ ИГРУ</a>
+<div class="hero-pills"><span>🎮 5 этапов</span><span>👥 2–5 игроков</span><span>⏱ 30–60 минут</span></div>
+</header>
+<section class="intro-grid" id="about">
+  <article class="intro-card"><div class="intro-icon">◎</div><h2>Задача</h2><p>Научиться замечать повторяющиеся следы, отличать дефект от помехи и принимать решения на основе наблюдений.</p></article>
+  <article class="intro-card" id="how"><div class="intro-icon">↗</div><h2>Как играть</h2><p>Изучи участок, сравни данные, выбери дополнительную проверку и обоснуй возможную причину дефекта.</p></article>
+  <article class="intro-card"><div class="intro-icon">✓</div><h2>Цель миссии</h2><p>Набрать больше очков, не пропускать опасные признаки и избегать необоснованных тревог.</p></article>
+</section>
+<section class="audience-section" id="audience">
+  <div class="eyebrow">Целевая аудитория</div>
+  <h2>Для кого создан проект</h2>
+  <p class="audience-lead">«Охота на дефект» — учебная мини-игра для знакомства с задачами контроля качества рельсов и принципами поиска возможных дефектов на горячем металле.</p>
+  <div class="audience-grid">
+    <article class="audience-card"><div class="audience-icon">🎓</div><h3>Студенты и учащиеся</h3><p>Для тех, кто изучает металлургию, обработку металлов, железнодорожную инфраструктуру или промышленную безопасность.</p></article>
+    <article class="audience-card"><div class="audience-icon">🛠️</div><h3>Будущие специалисты производства</h3><p>Для знакомства с тем, как наблюдения, повторяющиеся следы и данные датчиков помогают сформулировать гипотезу о причине дефекта.</p></article>
+    <article class="audience-card"><div class="audience-icon">👥</div><h3>Преподаватели и учебные команды</h3><p>Для обсуждения диагностических решений, разбора ошибок и командных занятий по контролю качества.</p></article>
+  </div>
+  <div class="audience-note"><b>Важно:</b> игра носит учебный характер. Она не заменяет утверждённые методы неразрушающего контроля, производственные инструкции и решения ответственных специалистов.</div>
+</section>
+<div class="section-heading" id="game"><div><div class="eyebrow">Тренажёр диагностики</div><h2>Игровая смена</h2></div><p>Принимай решения на каждом участке и смотри разбор ответа.</p></div>
+<div class="stats">
+ <div class="stat"><small>Очки команды</small><strong id="score">0</strong></div>
+ <div class="stat"><small>Участок</small><strong id="round">1 / 5</strong></div>
+ <div class="stat"><small>Обнаружено дефектов</small><strong id="found">0</strong></div>
+</div>
+<div class="progress"><div id="progress"></div></div>
+<div class="layout">
+<section class="panel">
+ <span class="tag" id="stageTag">Этап 1 · Осмотр</span>
+ <h2 id="caseTitle">Участок № 1: первый след</h2>
+ <p id="caseIntro">Изучи поверхность и наблюдения. Пока данных недостаточно для окончательного вывода.</p>
+ <div class="rail-scene" id="scene"></div>
+ <div class="clues" id="clues"></div>
+ <div id="decisionArea">
+  <h2>Как поступить?</h2>
+  <div class="choices" id="choices"></div>
+ </div>
+ <div class="feedback" id="feedback" aria-live="polite">Выбери действие. После решения появится объяснение.</div>
+ <div class="actions">
+  <button class="primary hidden" id="nextBtn">Следующий участок →</button>
+  <button class="muted-btn" id="restartBtn">Начать заново</button>
+ </div>
+</section>
+<aside class="panel">
+ <h2>Памятка инженера</h2>
+ <div class="clues">
+  <div class="clue"><b>🔁 Повторяемость</b><span>Похожие следы на нескольких рельсах могут указывать на общий источник, например повреждение валка.</span></div>
+  <div class="clue"><b>📡 Данные датчиков</b><span>Вибрация или тепловая аномалия — это повод проверить гипотезу, но не всегда доказательство дефекта.</span></div>
+  <div class="clue"><b>🔎 Подтверждение</b><span>Сначала наблюдение, затем подходящий метод контроля и только потом вывод о причине.</span></div>
+  <div class="clue"><b>⚖️ Баланс решений</b><span>Пропуск опасного дефекта хуже ложной тревоги, но бесконечные проверки тоже мешают производству.</span></div>
+ </div>
+ <h2>Правила очков</h2>
+ <p>Верное обнаружение: <b style="color:var(--green)">+3</b></p>
+ <p>Верная причина или проверка: <b style="color:var(--green)">+2</b></p>
+ <p>Ложная тревога: <b style="color:var(--orange)">−1</b></p>
+ <p>Пропуск дефекта: <b style="color:var(--red)">−5</b></p>
+ <p class="small">Учебная модель: изображения и показания условные. В реальном производстве метод контроля выбирают по стандартам, температуре и типу дефекта.</p>
+</aside>
+</div>
+<section class="closing">
+  <div><div class="eyebrow">Главный принцип</div><h2>Наблюдай. Проверяй. Подтверждай.</h2><p>Игра показывает, почему важно сопоставлять признаки и подтверждать гипотезы, а не делать вывод по одному сигналу.</p></div>
+  <a class="hero-cta" href="#top">↑&nbsp; НАВЕРХ</a>
+</section>
+<div class="footer">ЕВРАЗ · «Охота на дефект» — учебный концепт. Все игровые данные условные и не предназначены для принятия производственных решений.</div>
+</div>
+<script>
+const cases = [
+ {title:"Участок № 1: повторяющийся след", intro:"На трёх рельсах подряд заметны похожие поперечные полосы. Нужно решить, достаточно ли этого для вывода.", kind:"mark",
+ clues:[["Наблюдение","Похожие следы расположены примерно на одинаковом расстоянии."],["Данные линии","Температура поверхности высокая; визуальная оценка ограничена бликами."],["Неизвестно","Пока нет подтверждения, что следы являются опасными дефектами."]],
+ options:[
+ {t:"Сразу признать все рельсы бракованными",icon:"🚨",pts:-1,fb:"Слишком поспешно: похожий след — важная подсказка, но его нужно проверить. Ложные тревоги снижают результат."},
+ {t:"Сопоставить следы и запросить дополнительную проверку",icon:"🔎",pts:5,fb:"Верно! Повторяемость помогает выдвинуть гипотезу об общем источнике, а дополнительная проверка снижает неопределённость.",found:1},
+ {t:"Игнорировать следы и продолжить без проверки",icon:"➡️",pts:-5,fb:"Рискованно: повторяющиеся следы могут быть признаком проблемы оборудования. Их нельзя игнорировать."}]},
+ {title:"Участок № 2: показания датчика",intro:"После первичного осмотра система сообщает о повышенной вибрации рядом с прокатной клетью.",kind:"sensor",
+ clues:[["Сигнал","Вибрация выше обычного уровня на нескольких последовательных проходах."],["Контекст","На рельсах из первого участка были похожие следы."],["Ограничение","Датчик может реагировать и на другие источники вибрации."]],
+ options:[
+ {t:"Считать датчик окончательным доказательством",icon:"📈",pts:-1,fb:"Сигнал сам по себе не доказывает наличие дефекта. Его нужно сопоставить с осмотром и другими данными."},
+ {t:"Сопоставить сигнал с рисунком следов и проверить валок",icon:"🧭",pts:4,fb:"Хорошее решение: сочетание независимых признаков делает гипотезу сильнее. Проверка оборудования помогает установить причину.",found:1},
+ {t:"Отключить сигнал как помеху без анализа",icon:"🔇",pts:-5,fb:"Так можно пропустить важный признак неисправности. Сначала выясни источник сигнала."}]},
+ {title:"Участок № 3: возможная помеха",intro:"На поверхности видны тёмные пятна, но похожих следов на соседних рельсах нет.",kind:"stain",
+ clues:[["Наблюдение","Пятна имеют разную форму и не повторяются на одинаковых участках."],["Данные","Предварительный осмотр не выявил явной геометрической деформации."],["Задача","Не перепутать загрязнение поверхности с повреждением металла."]],
+ options:[
+ {t:"Объявить опасный дефект только по цвету",icon:"🚨",pts:-1,fb:"Цветовое отличие может быть связано с загрязнением или окалиной. Одного признака недостаточно."},
+ {t:"Провести подходящий осмотр поверхности и сверить критерии",icon:"🧪",pts:4,fb:"Верно: сначала нужно отделить поверхностную помеху от реального повреждения. Решение принимается по результату проверки.",found:0},
+ {t:"Не проверять, потому что следы не повторяются",icon:"🙈",pts:-2,fb:"Отсутствие повторяемости не гарантирует безопасность. Нужна проверка по установленным критериям."}]},
+ {title:"Участок № 4: выбор метода контроля",intro:"Есть подозрение на трещину. Рельс ещё горячий, поэтому не каждый способ проверки одинаково удобен.",kind:"crack",
+ clues:[["Признак","Линейный след выглядит подозрительно и требует подтверждения."],["Условие","Высокая температура ограничивает применение некоторых приборов и методик."],["Цель","Выбрать контроль, подходящий для конкретного дефекта и температуры."]],
+ options:[
+ {t:"Использовать любой прибор без проверки его температурных ограничений",icon:"⚠️",pts:-2,fb:"Нельзя игнорировать рабочие температуры и ограничения оборудования. Метод должен быть пригоден для условий линии."},
+ {t:"Остановить решение на визуальном впечатлении",icon:"👁️",pts:-1,fb:"Визуальный осмотр полезен, но подозрение на трещину требует подтверждения подходящим методом."},
+ {t:"Выбрать валидированный для горячего металла контроль и подтвердить результат",icon:"🛠️",pts:5,fb:"Верно! Метод подбирают под тип дефекта, температуру и требования технологии. Подтверждение не позволяет принять догадку за факт.",found:1}]},
+ {title:"Участок № 5: вывод о причине",intro:"Несколько наблюдений указывают на похожие дефекты, а проверка оборудования выявила подозрительный участок валка.",kind:"roller",
+ clues:[["Сводка","Повторяющийся рисунок обнаружен на нескольких рельсах."],["Оборудование","При осмотре валка найдено повреждение, совпадающее по расположению с рисунком следов."],["Финальная задача","Сформулировать обоснованный вывод и безопасное действие."]],
+ options:[
+ {t:"Зафиксировать вероятную связь, изолировать подозрительную продукцию для проверки и сообщить специалисту",icon:"✅",pts:5,fb:"Отлично! Вы связали признаки с вероятной причиной и выбрали безопасное действие. Окончательное решение о годности принимает ответственный контроль качества.",found:1},
+ {t:"Считать все рельсы заведомо безопасными, раз линия продолжает работать",icon:"➡️",pts:-5,fb:"Работа линии не доказывает отсутствие дефектов. Подозрительную продукцию нужно проверить по процедуре качества."},
+ {t:"Объявить причиной валок без документирования и проверки",icon:"❓",pts:-2,fb:"Гипотеза правдоподобна, но её нужно документировать и подтвердить. Важно сохранять цепочку доказательств."}]}
+];
+let idx=0, score=0, found=0, answered=false;
+const $=id=>document.getElementById(id);
+function railSVG(kind){
+ const crack = kind==="crack"||kind==="roller";
+ const stain = kind==="stain";
+ const sensor = kind==="sensor";
+ let marks="";
+ if(kind==="mark") marks='<path d="M130 92 l12 40 M235 92 l12 40 M340 92 l12 40" stroke="#ff8500" stroke-width="5"/><path d="M130 92 l12 40 M235 92 l12 40 M340 92 l12 40" stroke="#382b1c" stroke-width="1.5"/>';
+ if(crack) marks='<path d="M250 83 l-12 18 10 8 -18 21 9 14" stroke="#161d26" stroke-width="5" fill="none"/><path d="M250 83 l-12 18 10 8 -18 21 9 14" stroke="#ff6d79" stroke-width="1.5" fill="none"/>';
+ if(stain) marks='<ellipse cx="165" cy="110" rx="28" ry="10" fill="#182a38" opacity=".75"/><ellipse cx="335" cy="120" rx="17" ry="7" fill="#182a38" opacity=".65"/>';
+ if(sensor) marks='<path d="M60 135 L105 135 L120 108 L145 151 L175 95 L200 139 L225 122 L250 136 L275 87 L302 145 L330 115 L360 135 L410 135" stroke="#54d8ff" stroke-width="3" fill="none"/>';
+ return `<svg viewBox="0 0 480 190" role="img" aria-label="Иллюстрация рельса и наблюдаемого признака"><defs><linearGradient id="steel" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#b6c5d3"/><stop offset=".45" stop-color="#647b91"/><stop offset="1" stop-color="#28394b"/></linearGradient><linearGradient id="glow"><stop stop-color="#ff7d42"/><stop offset="1" stop-color="#ffce69"/></linearGradient></defs><rect width="480" height="190" fill="${sensor?'#091b2b':'#111d2b'}"/><path d="M0 42 L480 12 M0 170 L480 140" stroke="#29394a" stroke-width="2"/>${sensor?'<text x="24" y="34" fill="#7ce6ff" font-size="12">СИГНАЛ ДАТЧИКА · УСЛОВНЫЙ</text>':''}<path d="M20 105 L460 70 L460 92 L20 127 Z" fill="url(#steel)" stroke="#c5d2dd" stroke-width="1.5"/><path d="M20 127 L460 92 L460 118 L20 153 Z" fill="#34485b"/><path d="M20 105 L460 70" stroke="#f2f6fa" stroke-width="3" opacity=".75"/><path d="M20 153 L460 118" stroke="#7f95aa" stroke-width="2"/>${marks}<text x="22" y="178" fill="#9db1c6" font-size="11">УЧЕБНАЯ ИЛЛЮСТРАЦИЯ · НЕ ДИАГНОСТИЧЕСКИЙ СНИМОК</text></svg>`;
+}
+function render(){
+ const c=cases[idx]; answered=false;
+ $('score').textContent=score; $('round').textContent=`${idx+1} / ${cases.length}`; $('found').textContent=found;
+ $('progress').style.width=`${idx/cases.length*100}%`;
+ $('stageTag').textContent=`Этап ${idx+1} · ${idx===4?'Подтверждение':'Диагностика'}`;
+ $('caseTitle').textContent=c.title; $('caseIntro').textContent=c.intro;
+ $('scene').innerHTML=railSVG(c.kind);
+ $('clues').innerHTML=c.clues.map(x=>`<div class="clue"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('');
+ $('choices').innerHTML='';
+ c.options.forEach((o,i)=>{const b=document.createElement('button');b.className='choice';b.innerHTML=`<span>${o.icon}</span><span>${o.t}</span>`;b.onclick=()=>choose(i);$('choices').appendChild(b)});
+ $('feedback').className='feedback';$('feedback').textContent='Выбери действие. После решения появится объяснение.';
+ $('nextBtn').classList.add('hidden');$('decisionArea').classList.remove('hidden');
+}
+function choose(i){
+ if(answered)return;answered=true;
+ const c=cases[idx],o=c.options[i];score+=o.pts;if(o.found)found++;
+ $('score').textContent=score;$('found').textContent=found;
+ $('feedback').className='feedback '+(o.pts>0?'good':'bad');
+ $('feedback').innerHTML=`<b>${o.pts>0?'Хорошее решение':'Разбор решения'} · ${o.pts>0?'+':''}${o.pts} очк.</b><br>${o.fb}`;
+ [...$('choices').children].forEach((b,n)=>{b.disabled=true;if(n===i)b.style.borderColor=o.pts>0?'#48d597':'#ff6d79'});
+ $('nextBtn').textContent=idx===cases.length-1?'Показать результат →':'Следующий участок →';
+ $('nextBtn').classList.remove('hidden');$('progress').style.width=`${(idx+1)/cases.length*100}%`;
+}
+function finish(){
+ $('stageTag').textContent='Итоги миссии';$('caseTitle').textContent='Смена завершена!';
+ $('caseIntro').textContent=`Ты набрал(а) ${score} очков и отметил(а) ${found} важных эпизодов обнаружения или подтверждения.`;
+ $('scene').innerHTML='<svg viewBox="0 0 480 150"><rect width="480" height="150" fill="#10253a"/><text x="240" y="72" fill="#54b7ff" font-size="28" font-weight="bold" text-anchor="middle">МИССИЯ ЗАВЕРШЕНА</text><text x="240" y="105" fill="#d7e9f8" font-size="16" text-anchor="middle">Наблюдай · Проверяй · Подтверждай</text></svg>';
+ $('clues').innerHTML=`<div class="clue"><b>Твой результат: ${score} очков</b><span>${score>=15?'Отличная работа: ты сопоставлял признаки и проверял гипотезы.':score>=5?'Хороший старт. Помни: сигнал — это повод для проверки, а не всегда доказательство.':'Попробуй ещё раз: обращай внимание на повторяемость и не пропускай подозрительные признаки.'}</span></div><div class="clue"><b>Главный вывод</b><span>Надёжная диагностика строится на цепочке: наблюдение → гипотеза → подходящая проверка → подтверждение → безопасное решение.</span></div>`;
+ $('decisionArea').classList.add('hidden');$('nextBtn').classList.add('hidden');$('progress').style.width='100%';
+ $('feedback').className='feedback good';$('feedback').textContent='Спасибо за игру! Можно начать новую смену.';
+}
+$('nextBtn').onclick=()=>{if(idx<cases.length-1){idx++;render()}else finish()};
+$('restartBtn').onclick=()=>{idx=0;score=0;found=0;render()};
+render();
+</script>
+</body>
+</html>
