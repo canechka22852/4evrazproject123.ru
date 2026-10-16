@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тренажер диагностики</title>
+    <link href="index.css" rel="stylesheet">
+</head>
+<body>
+<div class="padding">
+
+<div class="section-heading" id="game"><div><div class="eyebrow">Тренажёр диагностики</div><h2>Игровая смена</h2></div><p>Принимай решения на каждом участке и смотри разбор ответа.</p></div>
+<div class="stats">
+ <div class="stat"><small>Очки команды</small><strong id="score">0</strong></div>
+ <div class="stat"><small>Участок</small><strong id="round">1 / 5</strong></div>
+ <div class="stat"><small>Обнаружено дефектов</small><strong id="found">0</strong></div>
+</div>
+<div class="progress"><div id="progress"></div></div>
+<div class="layout">
+<section class="panel">
+ <span class="tag" id="stageTag">Этап 1 · Осмотр</span>
+ <h2 id="caseTitle">Участок № 1: первый след</h2>
+ <p id="caseIntro">Изучи поверхность и наблюдения. Пока данных недостаточно для окончательного вывода.</p>
+ <div class="rail-scene" id="scene"></div>
+ <div class="clues" id="clues"></div>
+ <div id="decisionArea">
+  <h2>Как поступить?</h2>
+  <div class="choices" id="choices"></div>
+ </div>
+ <div class="feedback" id="feedback" aria-live="polite">Выбери действие. После решения появится объяснение.</div>
+ <div class="actions">
+  <button class="primary hidden" id="nextBtn">Следующий участок →</button>
+  <button class="muted-btn" id="restartBtn">Начать заново</button>
+ </div>
+</section>
+<aside class="panel">
+ <h2>Памятка инженера</h2>
+ <div class="clues">
+  <div class="clue"><b>🔁 Повторяемость</b><span>Похожие следы на нескольких рельсах могут указывать на общий источник, например повреждение валка.</span></div>
+  <div class="clue"><b>📡 Данные датчиков</b><span>Вибрация или тепловая аномалия — это повод проверить гипотезу, но не всегда доказательство дефекта.</span></div>
+  <div class="clue"><b>🔎 Подтверждение</b><span>Сначала наблюдение, затем подходящий метод контроля и только потом вывод о причине.</span></div>
+  <div class="clue"><b>⚖️ Баланс решений</b><span>Пропуск опасного дефекта хуже ложной тревоги, но бесконечные проверки тоже мешают производству.</span></div>
+ </div>
+ <h2>Правила очков</h2>
+ <p>Верное обнаружение: <b style="color:var(--green)">+3</b></p>
+ <p>Верная причина или проверка: <b style="color:var(--green)">+2</b></p>
+ <p>Ложная тревога: <b style="color:var(--orange)">−1</b></p>
+ <p>Пропуск дефекта: <b style="color:var(--red)">−5</b></p>
+ <p class="small">Учебная модель: изображения и показания условные. В реальном производстве метод контроля выбирают по стандартам, температуре и типу дефекта.</p>
+</aside>
+</div>
+</div>
+</body>
+</html>

@@ -4,55 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ЕВРАЗ — Охота на дефект</title>
-<style>
-:root{--bg:#090d0f;--panel:#111719;--panel2:#1a2224;--line:#303b3e;--text:#f4f5f5;--muted:#b8c0c2;--blue:#ff7900;--green:#39d477;--orange:#ff8a00;--red:#ff4c42}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#252c2c 0,#090d0f 62%);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-.wrap{max-width:1080px;margin:auto;padding:22px}.hero{padding:24px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(120deg,#202727,#0c1112);position:relative;overflow:hidden}
-.hero:after{content:"";position:absolute;right:-20px;bottom:-50px;width:300px;height:150px;border-top:8px solid #72879e;border-bottom:8px solid #72879e;transform:rotate(-13deg);opacity:.25}
-.eyebrow{color:#ff8a00;font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}h1{font-size:clamp(2rem,5vw,3.2rem);line-height:1.05;margin:.35em 0}p{margin:.5em 0;color:var(--muted)}.hero p{max-width:700px}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0}.stat,.panel{border:1px solid var(--line);background:rgba(18,30,48,.92);border-radius:16px;padding:16px}.stat small{display:block;color:var(--muted)}.stat strong{font-size:1.5rem}
-.layout{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.panel h2{margin:0 0 10px;font-size:1.15rem}.tag{display:inline-block;padding:4px 9px;border-radius:99px;background:#39240f;color:#ffd2a3;font-size:.8rem;font-weight:700}
-.rail-scene{border-radius:12px;overflow:hidden;background:#0a111c;border:1px solid #30445e;margin:12px 0}
-.rail-scene svg{display:block;width:100%;height:auto}.clues{display:grid;gap:9px;margin:12px 0}.clue{padding:11px 12px;border:1px solid var(--line);border-radius:11px;background:#0d1315}.clue b{display:block;color:#fff}.clue span{color:var(--muted);font-size:.94rem}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}button{border:1px solid #46617f;background:#203b59;color:#f4f9ff;padding:12px 13px;border-radius:11px;font:inherit;font-weight:700;cursor:pointer;transition:.15s}button:hover{filter:brightness(1.15);transform:translateY(-1px)}button:focus-visible{outline:3px solid var(--blue);outline-offset:2px}.primary{background:#087bb8;border-color:#35a7e7}.safe{background:#16452d;border-color:#2a936d}.warn{background:#57300d;border-color:#a7772f}.muted-btn{background:#171f21}
-.feedback{margin-top:12px;padding:13px;border-radius:11px;background:#0d1315;border:1px solid var(--line);min-height:52px}.feedback.good{border-color:#2a936d}.feedback.bad{border-color:#b15b62}
-.progress{height:8px;background:#30383a;border-radius:99px;overflow:hidden;margin:10px 0 14px}.progress div{height:100%;background:linear-gradient(90deg,#ff5b00,#ffb000);width:0;transition:width .3s}
-.small{font-size:.9rem;color:var(--muted)}.choices{display:grid;gap:9px}.choice{display:flex;gap:10px;align-items:flex-start;text-align:left}.choice span:first-child{font-size:1.25rem}.hidden{display:none!important}.footer{margin:16px 2px;color:var(--muted);font-size:.85rem}
-
-.site-nav{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:14px 4px 20px}
-.brand{display:flex;align-items:center;gap:9px;color:#f7f7f7;text-decoration:none;font-size:1.35rem;font-weight:900;letter-spacing:.02em}
-.brand-mark{color:#ff8500;font-size:1.7rem;line-height:1}
-.nav-links{display:flex;align-items:center;gap:22px}
-.nav-links a{color:#cbd0d1;text-decoration:none;font-size:.92rem;font-weight:700}
-.nav-links a:hover{color:#ff9200}
-.nav-links .nav-play{background:linear-gradient(135deg,#ff9a00,#ff5b00);color:#101010;padding:9px 15px;border-radius:8px}
-.hero-cta{display:inline-flex;align-items:center;justify-content:center;margin-top:16px;padding:13px 20px;border-radius:9px;background:linear-gradient(135deg,#ff9a00,#ff5b00);color:#111;text-decoration:none;font-weight:900;letter-spacing:.02em;position:relative;z-index:1}
-.hero-pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:18px;position:relative;z-index:1}
-.hero-pills span{padding:7px 10px;border:1px solid #394142;border-radius:8px;background:#111718;color:#e3e5e5;font-size:.88rem}
-.intro-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:15px 0 26px}
-.intro-card{border:1px solid var(--line);border-radius:14px;padding:18px;background:linear-gradient(145deg,#171e20,#0e1315)}
-.intro-icon{font-size:1.6rem;color:#ff8500;font-weight:900}
-.intro-card h2{margin:7px 0 5px;font-size:1.1rem}.intro-card p{margin:0;font-size:.94rem}
-
-.audience-section{margin:22px 0 26px;padding:22px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(135deg,#171e20,#0c1112)}
-.audience-section h2{margin:4px 0 8px;font-size:clamp(1.4rem,3vw,2rem)}
-.audience-lead{max-width:780px}
-.audience-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:15px}
-.audience-card{padding:16px;border:1px solid #394142;border-radius:12px;background:#101617}
-.audience-icon{font-size:1.5rem;color:#ff8500}
-.audience-card h3{margin:8px 0 6px;font-size:1.02rem}
-.audience-card p{margin:0;font-size:.93rem}
-.audience-note{margin-top:14px;padding:12px;border-left:3px solid #ff8500;background:#101617;border-radius:0 9px 9px 0;font-size:.92rem;color:#d7dddd}
-
-.section-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:24px 2px 12px}
-.section-heading h2,.closing h2{margin:4px 0;font-size:clamp(1.5rem,3vw,2rem)}
-.section-heading p{max-width:390px;font-size:.92rem}
-.closing{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-top:20px;padding:22px;border:1px solid var(--line);border-radius:16px;background:linear-gradient(120deg,#1a2223,#0c1112)}
-.closing p{max-width:650px;margin-bottom:0}
-html{scroll-behavior:smooth;scroll-padding-top:14px}
-
-@media(max-width:760px){.audience-grid{grid-template-columns:1fr}.wrap{padding:12px}.site-nav{align-items:flex-start}.nav-links{gap:10px;flex-wrap:wrap;justify-content:flex-end}.nav-links a{font-size:.82rem}.intro-grid{grid-template-columns:1fr}.section-heading,.closing{align-items:flex-start;flex-direction:column}.layout{grid-template-columns:1fr}.stats{gap:8px}.stat{padding:12px}.actions{grid-template-columns:1fr}.hero{padding:20px}}
-</style>
+<link href="index.css" rel="stylesheet">
 </head>
 <body>
 <div class="wrap">
@@ -62,15 +14,15 @@ html{scroll-behavior:smooth;scroll-padding-top:14px}
     <a href="#about">О проекте</a>
     <a href="#how">Как играть</a>
     <a href="#audience">Для кого</a>
-    <a class="nav-play" href="#game">Играть&nbsp; →</a>
+    <a class="nav-play" href="game.html">Играть&nbsp; →</a>
   </div>
 </nav>
 <header class="hero" id="top">
 <div class="eyebrow">☰ ЕВРАЗ · Инженерная мини-игра</div>
 <h1>ОХОТА <span style="color:#ff8500">НА ДЕФЕКТ</span></h1>
 <p>Найди дефекты рельсов до их остывания и предотврати аварии. Сопоставляй следы, анализируй показания датчиков и принимай решения как инженер контроля качества.</p>
-<a class="hero-cta" href="#game">▶&nbsp; НАЧАТЬ ИГРУ</a>
-<div class="hero-pills"><span>🎮 5 этапов</span><span>👥 2–5 игроков</span><span>⏱ 30–60 минут</span></div>
+<a class="hero-cta" href="game.html">▶&nbsp; НАЧАТЬ ИГРУ</a>
+<div class="hero-pills"><span>🎮 5 этапов</span><span>⏱️ 5-15 минут</span></div>
 </header>
 <section class="intro-grid" id="about">
   <article class="intro-card"><div class="intro-icon">◎</div><h2>Задача</h2><p>Научиться замечать повторяющиеся следы, отличать дефект от помехи и принимать решения на основе наблюдений.</p></article>
@@ -88,46 +40,6 @@ html{scroll-behavior:smooth;scroll-padding-top:14px}
   </div>
   <div class="audience-note"><b>Важно:</b> игра носит учебный характер. Она не заменяет утверждённые методы неразрушающего контроля, производственные инструкции и решения ответственных специалистов.</div>
 </section>
-<div class="section-heading" id="game"><div><div class="eyebrow">Тренажёр диагностики</div><h2>Игровая смена</h2></div><p>Принимай решения на каждом участке и смотри разбор ответа.</p></div>
-<div class="stats">
- <div class="stat"><small>Очки команды</small><strong id="score">0</strong></div>
- <div class="stat"><small>Участок</small><strong id="round">1 / 5</strong></div>
- <div class="stat"><small>Обнаружено дефектов</small><strong id="found">0</strong></div>
-</div>
-<div class="progress"><div id="progress"></div></div>
-<div class="layout">
-<section class="panel">
- <span class="tag" id="stageTag">Этап 1 · Осмотр</span>
- <h2 id="caseTitle">Участок № 1: первый след</h2>
- <p id="caseIntro">Изучи поверхность и наблюдения. Пока данных недостаточно для окончательного вывода.</p>
- <div class="rail-scene" id="scene"></div>
- <div class="clues" id="clues"></div>
- <div id="decisionArea">
-  <h2>Как поступить?</h2>
-  <div class="choices" id="choices"></div>
- </div>
- <div class="feedback" id="feedback" aria-live="polite">Выбери действие. После решения появится объяснение.</div>
- <div class="actions">
-  <button class="primary hidden" id="nextBtn">Следующий участок →</button>
-  <button class="muted-btn" id="restartBtn">Начать заново</button>
- </div>
-</section>
-<aside class="panel">
- <h2>Памятка инженера</h2>
- <div class="clues">
-  <div class="clue"><b>🔁 Повторяемость</b><span>Похожие следы на нескольких рельсах могут указывать на общий источник, например повреждение валка.</span></div>
-  <div class="clue"><b>📡 Данные датчиков</b><span>Вибрация или тепловая аномалия — это повод проверить гипотезу, но не всегда доказательство дефекта.</span></div>
-  <div class="clue"><b>🔎 Подтверждение</b><span>Сначала наблюдение, затем подходящий метод контроля и только потом вывод о причине.</span></div>
-  <div class="clue"><b>⚖️ Баланс решений</b><span>Пропуск опасного дефекта хуже ложной тревоги, но бесконечные проверки тоже мешают производству.</span></div>
- </div>
- <h2>Правила очков</h2>
- <p>Верное обнаружение: <b style="color:var(--green)">+3</b></p>
- <p>Верная причина или проверка: <b style="color:var(--green)">+2</b></p>
- <p>Ложная тревога: <b style="color:var(--orange)">−1</b></p>
- <p>Пропуск дефекта: <b style="color:var(--red)">−5</b></p>
- <p class="small">Учебная модель: изображения и показания условные. В реальном производстве метод контроля выбирают по стандартам, температуре и типу дефекта.</p>
-</aside>
-</div>
 <section class="closing">
   <div><div class="eyebrow">Главный принцип</div><h2>Наблюдай. Проверяй. Подтверждай.</h2><p>Игра показывает, почему важно сопоставлять признаки и подтверждать гипотезы, а не делать вывод по одному сигналу.</p></div>
   <a class="hero-cta" href="#top">↑&nbsp; НАВЕРХ</a>
